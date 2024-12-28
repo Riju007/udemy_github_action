@@ -1,0 +1,16 @@
+name: second-workflow
+on: workflow_dispatch
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: multi-line-command-01
+        run: |
+          echo "First Output"
+          echo "Second output"
+      - name: multi-line-command-02
+        run: |
+          echo "This is for testing1"
+          echo "This is for testing 2"
+      - name: get-current-folder-name
+        run: pwd
