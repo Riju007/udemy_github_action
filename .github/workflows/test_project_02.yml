@@ -14,5 +14,6 @@ jobs:
         run: |
           cd "02 Starting Project"
           npm ci
+          cd ..
       - name: Run Tests
         run: npm test
