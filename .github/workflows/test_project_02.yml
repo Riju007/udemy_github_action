@@ -12,7 +12,7 @@ jobs:
           node-version: 18
       - name: Install Dependencies
         run: |
-          cd 02 Starting Project
+          cd "02 Starting Project"
           npm ci
       - name: Run Tests
         run: npm test
