@@ -18,3 +18,23 @@ jobs:
         run: |
           cd "02 Starting Project"
           npm test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: |
+          cd "02 Starting Project"
+          npm ci
+      - name: Build Project
+        run: |
+          cd "02 Starting Project"
+          npm run build
+      - name: deploy
+        run: echo "Deploy...."
+
