@@ -1,0 +1,21 @@
+name: Section 3 Assignment
+on: [push, workflow_dispatch]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: |
+          cd section_3_practice_ project
+          npm ci
+      - name: Auto format the code with linter
+        run: |
+          cd section_3_practice_ project
+          npx eslint ./**/*.js
+      
