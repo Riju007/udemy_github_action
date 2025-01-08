@@ -16,6 +16,42 @@ jobs:
           npm ci
       - name: Auto format the code with linter
         run: |
-          cd "section_3_practice_ project"
+          cd "section_3_practice_project"
           npx eslint src/**/*.js
-      
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: |
+          cd "section_3_practice_project"
+          npm ci
+      - name: Run Tests
+        run: |
+          cd "section_3_practice_project"
+          npm test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: |
+          cd section_3_practice_project
+          npm ci
+      - name: Build Project
+        run: |
+          cd section_3_practice_project
+          npm run build
+      - name: deploy
+        run: echo "Deploy...."
