@@ -12,7 +12,7 @@ jobs:
           node-version: 18
       - name: Install Dependencies
         run: |
-          cd "section_3_practice_ project"
+          cd "section_3_practice_project"
           npm ci
       - name: Auto format the code with linter
         run: |
