@@ -17,5 +17,5 @@ jobs:
       - name: Auto format the code with linter
         run: |
           cd "section_3_practice_ project"
-          npx eslint ./**/*.js
+          npx eslint src/**/*.js
       
