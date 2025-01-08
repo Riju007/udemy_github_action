@@ -1,0 +1,11 @@
+name: Issue Tracker
+on: [workflow_dispatch, issues]
+jobs:
+  issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Github Event
+        run: |
+          echo "${{toJSON(github.event_name )}}"
+          echo "${{toJSON(github.actor )}}"
+          echo "${{toJSON(github.actor )}}"
