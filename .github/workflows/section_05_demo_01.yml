@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+      # - dev
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,11 +12,17 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd section_5_project_01
+          npm ci
       - name: Lint code
-        run: npm run lint
+        run: |
+          cd section_5_project_01
+          npm run lint
       - name: Test code
-        run: npm run test
+        run: |
+          cd section_5_project_01
+          npm run test
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -22,9 +30,13 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd section_5_project_01
+          npm ci
       - name: Build website
-        run: npm run build
+        run: |
+          cd section_5_project_01
+          npm run build
   deploy:
     needs: build
     runs-on: ubuntu-latest
