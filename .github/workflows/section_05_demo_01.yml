@@ -37,6 +37,14 @@ jobs:
         run: |
           cd section_5_project_01
           npm run build
+      - name: Upload artifacts
+        # run: cd section_5_project_01
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: |
+            section_5_project_01/dist
+            section_5_project_01/package.json
   deploy:
     needs: build
     runs-on: ubuntu-latest
