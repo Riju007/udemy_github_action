@@ -8,13 +8,13 @@ on:
       - 'dev-*' # dev-new, dev-this
       - 'feat/**' # feat/new, feat/new/button
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - 'dev-*' # dev-new, dev-this
-      - 'feat/**' # feat/new, feat/new/button
-    paths-ignore:
-      - '.github/workflows/*'
+  # push:
+  #   branches:
+  #     - main
+  #     - 'dev-*' # dev-new, dev-this
+  #     - 'feat/**' # feat/new, feat/new/button
+  #   paths-ignore:
+  #     - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
