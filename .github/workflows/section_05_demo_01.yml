@@ -41,7 +41,9 @@ jobs:
           npm run build
       - name: Publish JS filename
         id: publish
-        run: find section_5_project_01/dist/assets/.*js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+        run: |
+          cd section_5_project_01
+          find dist/assets/.*js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifacts
         # run: cd section_5_project_01
         uses: actions/upload-artifact@v4
