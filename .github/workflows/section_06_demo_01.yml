@@ -5,9 +5,16 @@ on:
       - main
       - dev
   workflow_dispatch:
+env: 
+  MONGODB_DB_NAME: gha-demo
 jobs:
   test:
-    environment: testing
+    env:
+      MONGODB_CLUSTER_ADDRESS: cluster1.wmq13.mongodb.net
+      MONGODB_USERNAME: avisekdey1994
+      MONGODB_PASSWORD: OQCV532hyRAGdUTx
+      PORT: 8080
+    # environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -24,17 +31,18 @@ jobs:
       - name: Run server
         run: |
           cd section_6_project_01
-          npm start & npx wait-on http://127.0.0.1:XYZ
+          npm start & npx wait-on http://127.0.0.1:$PORT
       - name: Run tests
         run: |
           cd section_6_project_01
           npm test
       - name: Output information
-        run: echo "..."
+        run: echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
         run: |        
-          echo "..."
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
