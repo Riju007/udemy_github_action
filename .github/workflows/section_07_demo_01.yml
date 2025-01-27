@@ -40,10 +40,12 @@ jobs:
           cd section_7_project_01
           npm ci
       - name: Test code
+        id: run-tests
         run: |
           cd section_7_project_01
           npm run test
       - name: Upload test report
+        if: steps.run-tests.outcome == "failure"
         uses: actions/upload-artifact@v4
         with:
           name: test-report
