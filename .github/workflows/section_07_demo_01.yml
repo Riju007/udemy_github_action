@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v3
         with:
           # path: ~/.npm
-          path: node_modules
+          path: section_7_project_01/node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
