@@ -1,8 +1,8 @@
 name: Website Deployment
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   lint:
@@ -43,12 +43,13 @@ jobs:
           cd section_7_project_01
           npm ci
       - name: Test code
+        continue-on-error: true
         id: run-tests
         run: |
           cd section_7_project_01
           npm run test
       - name: Upload test report
-        if: failure() && steps.run-tests.outcome == 'failure'
+        # if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: test-report
