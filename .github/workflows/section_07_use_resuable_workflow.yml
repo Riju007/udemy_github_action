@@ -98,6 +98,12 @@ jobs:
     #     run: ls
     #   - name: Deploy
     #     run: echo "Deploying..."
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: print deploy outputs
+        run: echo ${{ needs.deploy.outputs.result }}
   report:
     needs: [lint, deploy]
     if: failure()
