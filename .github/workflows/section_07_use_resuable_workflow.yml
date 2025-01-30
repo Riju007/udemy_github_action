@@ -1,0 +1,105 @@
+name: Using reuseable workflow
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          # path: ~/.npm
+          path: section_7_project_01/node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cd section_7_project_01
+          npm ci
+      - name: Lint code
+        run: |
+          cd section_7_project_01
+          npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: section_7_project_01/node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cd section_7_project_01
+          npm ci
+      - name: Test code
+        id: run-tests
+        run: |
+          cd section_7_project_01
+          npm run test
+      - name: Upload test report
+        if: failure() && steps.run-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: section_7_project_01/test.json
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: section_7_project_01/node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cd section_7_project_01
+          npm ci
+      - name: Build website
+        id: build-website
+        run: |
+          cd section_7_project_01
+          npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: section_7_project_01/dist
+  deploy:
+    needs: build
+    uses: ./.github/workflows/section_07_reuseable_workflow.yml
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Get build artifacts
+    #     uses: actions/download-artifact@v4
+    #     with:
+    #       name: dist-files
+    #       path: section_7_project_01/dist
+    #   - name: Output contents
+    #     run: ls
+    #   - name: Deploy
+    #     run: echo "Deploying..."
+  report:
+    needs: [lint, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: |
+          echo "Something went wrong."
+          echo "${{ toJSON(github) }}"
