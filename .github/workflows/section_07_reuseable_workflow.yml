@@ -12,8 +12,8 @@ on:
     #     required: true
     outputs:
       result:
-      description: The result of the deployment operation
-      value: ${{ jobs.deploy.outputs.outcome }} 
+        description: The result of the deployment operation
+        value: ${{ jobs.deploy.outputs.outcome }} 
 jobs:
   deploy:
     outputs:
