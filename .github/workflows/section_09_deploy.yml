@@ -73,7 +73,7 @@ jobs:
           cd section_9_project_01
           npm run build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: cd section_9_project_01/dist
