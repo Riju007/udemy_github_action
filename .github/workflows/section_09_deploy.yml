@@ -1,4 +1,4 @@
-name: Deployment
+name: Deployment section 9
 on:
   push:
     branches:
@@ -47,7 +47,7 @@ jobs:
           npm run test
       - name: Upload test report
         if: failure() && steps.run-tests.outcome == 'failure'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: section_9_project_01/test.json
@@ -84,7 +84,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Get build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-files
           path: cd section_9_project_01/dist
