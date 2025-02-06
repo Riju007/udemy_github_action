@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: cd section_9_project_01/dist
+          path: section_9_project_01/dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -87,7 +87,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist-files
-          path: cd section_9_project_01/dist
+          path: section_9_project_01/dist
       - name: Output contents
         run: |
           ls
