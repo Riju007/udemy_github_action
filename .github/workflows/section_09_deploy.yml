@@ -31,17 +31,19 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          cd section_9_project_01
-          npm ci
+      # - name: Cache dependencies
+      #   id: cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: node_modules
+      #     key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      # - name: Install dependencies
+      #   if: steps.cache.outputs.cache-hit != 'true'
+      #   run: |
+      #     cd section_9_project_01
+      #     npm ci
+      - name: Load and Cache Dependencies
+        uses: ./.github/actions/cached-deps
       - name: Test code
         id: run-tests
         run: |
@@ -59,17 +61,19 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          cd section_9_project_01
-          npm ci
+      # - name: Cache dependencies
+      #   id: cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: node_modules
+      #     key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      # - name: Install dependencies
+      #   if: steps.cache.outputs.cache-hit != 'true'
+      #   run: |
+      #     cd section_9_project_01
+      #     npm ci
+      - name: Load and Cache Dependencies
+        uses: ./.github/actions/cached-deps
       - name: Build website
         run: |
           cd section_9_project_01
