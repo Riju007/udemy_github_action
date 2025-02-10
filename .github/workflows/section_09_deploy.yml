@@ -22,6 +22,8 @@ jobs:
       #     npm ci
       - name: Load and Cache Dependencies
         uses: ./.github/actions/cached-deps
+        with:
+          caching: 'false'
       - name: Lint code
         run: |
           cd section_9_project_01
