@@ -22,9 +22,12 @@ jobs:
       #     cd section_9_project_01
       #     npm ci
       - name: Load and Cache Dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-deps
         with:
           caching: 'false'
+      - name: output Information
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Lint code
         run: |
           cd section_9_project_01
