@@ -25,7 +25,7 @@ jobs:
         id: cache-deps
         uses: ./.github/actions/cached-deps
         with:
-          caching: 'false'
+          caching: "false"
       - name: output Information
         run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Lint code
@@ -90,6 +90,9 @@ jobs:
           name: dist-files
           path: section_9_project_01/dist
   deploy:
+    permissions:
+      id-token: write
+      contents: read
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -105,13 +108,18 @@ jobs:
           ls
           cd section_9_project_01
           ls
+      - name: Get AWS permissions
+        uses: aws-actions/configure-aws-credentials
+        with:
+          role-to-assume: arn:aws:iam::4502223425335:role/github_demo_1
+          aws-region: us-east-1
       - name: Deploy site
         id: deploy
         # uses: ./.github/actions/deploy-s3-javascript
         uses: ./.github/actions/deploy-s3-docker
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # env:
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           bucket: my_aws_bucket
           dist-folder: section_9_project_01/dist
