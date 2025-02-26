@@ -109,7 +109,7 @@ jobs:
           cd section_9_project_01
           ls
       - name: Get AWS permissions
-        uses: aws-actions/configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::4502223425335:role/github_demo_1
           aws-region: us-east-1
